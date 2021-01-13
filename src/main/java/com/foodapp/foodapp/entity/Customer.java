@@ -26,25 +26,29 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CUSTOMER_ID")
 	private int customerId;
-	
+
 	@Column(name = "ADDRESS")
 	private String address;
-	
+
 	@Column(name = "F_NAME")
 	private String firstName;
-	
+
 	@Column(name = "L_NAME")
 	private String lastName;
-	
+
 	@Column(name = "PHONE")
 	private int mobileNumber;
-	
+
 	@Column(name = "EMAIL")
 	private String email;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="CART_ID")
+	@JoinColumn(name = "CART_ID")
 	private Cart cart;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "CREDENTIAL_ID")
+	private UserCredential userCredential;
 
 	@OneToMany(mappedBy = "pk.customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<CustomerRestaurantMap> customerRestaurantMaps;
@@ -113,6 +117,14 @@ public class Customer implements Serializable {
 		this.customerRestaurantMaps = customerRestaurantMaps;
 	}
 
+	public UserCredential getUserCredential() {
+		return userCredential;
+	}
+
+	public void setUserCredential(UserCredential userCredential) {
+		this.userCredential = userCredential;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -125,6 +137,7 @@ public class Customer implements Serializable {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + mobileNumber;
+		result = prime * result + ((userCredential == null) ? 0 : userCredential.hashCode());
 		return result;
 	}
 
@@ -171,7 +184,18 @@ public class Customer implements Serializable {
 			return false;
 		if (mobileNumber != other.mobileNumber)
 			return false;
+		if (userCredential == null) {
+			if (other.userCredential != null)
+				return false;
+		} else if (!userCredential.equals(other.userCredential))
+			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", address=" + address + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", mobileNumber=" + mobileNumber + ", email=" + email + ", cart=" + cart
+				+ ", userCredential=" + userCredential + ", customerRestaurantMaps=" + customerRestaurantMaps + "]";
+	}
 }

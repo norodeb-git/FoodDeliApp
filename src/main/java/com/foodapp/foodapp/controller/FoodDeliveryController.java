@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodapp.foodapp.dto.CustomerDTO;
+import com.foodapp.foodapp.dto.LoginDTO;
 import com.foodapp.foodapp.service.FoodDeliveryService;
+import com.foodapp.foodapp.utility.Response;
 
 @RestController
 @CrossOrigin("*")
@@ -20,9 +22,14 @@ public class FoodDeliveryController {
 	FoodDeliveryService foodDeliveryService;
 	
 	@RequestMapping(value = "/register")
-	public ResponseEntity<String> register(@RequestBody CustomerDTO customer){
-		String msg = foodDeliveryService.register(customer);
-		return new ResponseEntity<String>(msg,HttpStatus.OK);
+	public ResponseEntity<Response> register(@RequestBody CustomerDTO customer){
+		Response response = foodDeliveryService.register(customer);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/login")
+	public ResponseEntity<Response> login(@RequestBody LoginDTO loginUser){
+		Response response = foodDeliveryService.loginUser(loginUser);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
 }
