@@ -32,4 +32,10 @@ public class FoodDeliveryController {
 		Response response = foodDeliveryService.loginUser(loginUser);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/getAllRestaurant")
+	public ResponseEntity<Response> getAllRestaurant(){
+		Response response = foodDeliveryService.getRestaurants();
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
 }

@@ -6,8 +6,11 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @Entity
 @Table(name = "RESTAURANT_MENU")
+@JsonIgnoreType
 public class RestaurantMenuMap implements Serializable{
 
 	/**

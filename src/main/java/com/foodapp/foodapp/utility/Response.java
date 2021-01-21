@@ -9,9 +9,17 @@ public class Response implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Object data;
 	private String message;
 	private HttpStatus httpStatus;
 	private StatusResponse statusResponse;
+	
+	public Object getData() {
+		return data;
+	}
+	public void setData(Object data) {
+		this.data = data;
+	}
 	public String getMessage() {
 		return message;
 	}
@@ -34,6 +42,7 @@ public class Response implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result + ((httpStatus == null) ? 0 : httpStatus.hashCode());
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		result = prime * result + ((statusResponse == null) ? 0 : statusResponse.hashCode());
@@ -48,6 +57,11 @@ public class Response implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Response other = (Response) obj;
+		if (data == null) {
+			if (other.data != null)
+				return false;
+		} else if (!data.equals(other.data))
+			return false;
 		if (httpStatus != other.httpStatus)
 			return false;
 		if (message == null) {
@@ -61,8 +75,8 @@ public class Response implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Response [message=" + message + ", httpStatus=" + httpStatus + ", statusResponse=" + statusResponse
-				+ "]";
+		return "Response [data=" + data + ", message=" + message + ", httpStatus=" + httpStatus + ", statusResponse="
+				+ statusResponse + "]";
 	}
 	
 }

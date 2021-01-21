@@ -1,5 +1,7 @@
 package com.foodapp.foodapp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.foodapp.foodapp.dto.CustomerDTO;
 import com.foodapp.foodapp.dto.LoginDTO;
 import com.foodapp.foodapp.entity.Cart;
 import com.foodapp.foodapp.entity.Customer;
+import com.foodapp.foodapp.entity.Restaurant;
 import com.foodapp.foodapp.entity.UserCredential;
 import com.foodapp.foodapp.utility.Response;
 import com.foodapp.foodapp.utility.StatusResponse;
@@ -66,6 +69,22 @@ public class FoodDeliveryService {
 		} else {
 			response.setHttpStatus(HttpStatus.BAD_REQUEST);
 			response.setMessage("Invalid Credentials");
+			response.setStatusResponse(StatusResponse.Failure);
+		}
+		return response;
+	}
+
+	public Response getRestaurants() {
+		Response response = new Response();
+		List<Restaurant> restaurants = foodDeliveryDao.getAllRestaurant();
+		if (!restaurants.isEmpty()) {
+			response.setData(restaurants);
+			response.setHttpStatus(HttpStatus.OK);
+			response.setMessage("Restaurant fetched");
+			response.setStatusResponse(StatusResponse.SUCCESS);
+		} else {
+			response.setHttpStatus(HttpStatus.BAD_REQUEST);
+			response.setMessage("Invalid request");
 			response.setStatusResponse(StatusResponse.Failure);
 		}
 		return response;
